@@ -1,0 +1,18 @@
+{
+  "name": "contajs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ichicoro",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "expressjs": "^1.0.1",
+    "finalhandler": "^1.1.2",
+    "router": "^1.3.3"
+  }
+}
