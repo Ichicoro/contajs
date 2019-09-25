@@ -252,4 +252,12 @@ app.delete('/actions', (req, res) => {
 })
 
 
+app.get('/', (req, res) => {
+    var pageString = fs.readFileSync(`./ui.html`, "utf8")
+        .replace(/###baseURL###/g, req.protocol + '://' + req.get('Host') + req.url)
+
+    return res.status(200).send(pageString)
+})
+
+
 app.listen(port, () => console.log("Ready on port " + port))

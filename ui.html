@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conta2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style>
+    @media (prefers-color-scheme: light) {
+        :root {
+            --main-text-color: rgb(51, 51, 51);
+            --navbar-bg: rgba(0,0,0,0.1);
+            --logout-button-active: rgba(0,0,0,0.2);
+            --login-button: rgba(0,0,0,0.1);
+            --input-border-color: rgba(0,0,0,0.1);
+            --main-background-color: white;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --main-text-color: white;
+            --navbar-bg: rgba(0,0,0,0.1);
+            --logout-button-active: rgba(0,0,0,0.2);
+            --login-button: rgba(0,0,0,0.1);
+            --input-border-color: rgb(255, 255, 255, 0.2);
+            --main-background-color: rgb(51, 51, 51);
+        }
+    }
+
+    body {
+        -webkit-font-smoothing: antialiased;
+        margin: 0px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: var(--main-text-color);
+        background-color: var(--main-background-color);
+    }
+
+    h1 {
+        font-size: 32px;
+        font-style: normal;
+        font-synthesis: none;
+        font-weight: 600;
+        letter-spacing: 0.12800000607967377px;
+    }
+
+    a {
+        color: rgb(0, 112, 201);
+    }
+
+    nav {
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        width: 100vw;
+        height: 50px;
+        background: var(--navbar-bg);
+        position: fixed;
+    }
+
+    textarea:focus, input:focus{
+        outline: none;
+    }
+
+    #apptitle {
+        position: absolute;
+        font-size: 20px;
+        top: 12.5px;
+        left: 50%;
+        transform: translate(-50%, -0%);
+    }
+
+    #loginSheet {
+        padding-top: 50px;
+        width: 100vw;
+        height: 100%;
+        /* background-image: url("https://images.unsplash.com/photo-1420593248178-d88870618ca0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60") */
+    }
+
+    #appView {
+        padding-top: 50px;
+        width: 100vw;
+        height: 100%;
+        /* padding-left: 37.5px; */
+    }
+
+    #logoutButton {
+        position: absolute;
+        text-align: right;
+        font-size: 16px;
+        top: 13px;
+        right: 10px;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        transition-duration: 250ms;
+        padding: 0px;
+        color: var(--main-text-color)
+        /* width: 20px; */
+    }
+
+    #logoutButton:active {
+        color: var(--logout-button-active);
+        transition-duration: 250ms;
+    }
+    
+    .centralDiv {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #centralLoginDiv {
+        width: 300px;
+        height: 300px;
+    }
+
+    #usernameInput, #passwordInput {
+        border  : none;
+        border-radius: 0px;
+        font-size: 16px;
+        padding : 7px;
+        border-bottom: 1px solid var(--input-border-color);
+        margin-bottom: 15px;
+        width   : 95%;
+        background-color: transparent;
+        color: var(--main-text-color);
+        /* font-family: "SF Mono", "Roboto Mono"; */
+    }
+
+    #loginBtn {
+        all: unset;
+        text-align: center;
+        width: 100%;
+        height: 50px;
+        border-radius: 7.5px;
+        background: var(--login-button);
+        font-size: 18px;
+        outline: none;
+        border: none;
+    }
+
+    .loginPart {
+        /* padding: 5px; */
+        border-bottom: 10px;
+    }
+</style>
+<body>
+        <nav id="ac-globalnav" class="js no-touch" role="navigation" data-hires="false" lang="en-US" dir="ltr">
+            <span id="apptitle">
+                <span>Conta²</span>
+            </span>
+            <button id="logoutButton">Log Out</button>
+        </nav>
+    </div>
+    <div id="loginSheet">
+        <div id="centralLoginDiv" class="centralDiv">
+            <h1>Login</h1>
+            <span class="loginPart"><label for="usernameInput">Username</label> <input id="usernameInput" type="text" autocomplete="off" tabindex="1" mozactionhint="Next"/></span>
+            <span class="loginPart"><label for="passwordInput">Password</label> <input id="passwordInput" type="password" autocomplete="off" tabindex="2"/></span>
+            <input id="loginBtn" type="submit" value="Login"/>
+        </div>
+    </div>
+    <div id="appView">
+        <div id="centralUIDiv" class="centralDiv">
+            <h1>Hi!</h1>
+        </div>
+    </div>
+</body>
+<script>
+    var loggedIn = window.localStorage.getItem("loggedIn") || false
+
+    if (!loggedIn) {
+        $("#logoutButton").hide()
+        $("#appView").hide()
+
+        function checkLogin() {
+            const username = $("#usernameInput").val()
+            const password = $("#passwordInput").val()
+            $.ajax({
+                url: "###baseURL###" + "users",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                type: "GET",
+                success: (data) => { 
+                    saveLogin(username, password)
+                },
+                error: (data) => { alert("Invalid username/password") }
+            })
+        }
+
+        function saveLogin(username, password) {
+            window.localStorage.setItem("username", username)
+            window.localStorage.setItem("password", password)
+            window.localStorage.setItem("loggedIn", true)
+            location.reload()
+        }
+
+        $("#usernameInput").keypress(key => {
+            if (key.keyCode == 13) {
+                $("#passwordInput").focus()
+            }
+        })
+
+        $("#passwordInput").keypress(key => {
+            if (key.keyCode == 13) {
+                $("#loginBtn").click()
+            }
+        })
+
+        $("#loginBtn").on("click", checkLogin)
+    } else {
+        $("#loginSheet").hide()
+
+        function logOut() {
+            window.localStorage.removeItem("username")
+            window.localStorage.removeItem("password")
+            window.localStorage.removeItem("loggedIn")
+            location.reload()
+        }
+
+        $("#logoutButton").on("click", () => { logOut() })
+    }
+</script>
+</html>
