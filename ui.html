@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conta2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="webfont.css">
 </head>
 <style>
     @media (prefers-color-scheme: light) {
@@ -22,7 +23,7 @@
         :root {
             --main-text-color: white;
             --navbar-bg: rgba(0,0,0,0.1);
-            --logout-button-active: rgba(0,0,0,0.2);
+            --logout-button-active: rgba(255,255,255,0.3);
             --login-button: rgba(0,0,0,0.1);
             --input-border-color: rgb(255, 255, 255, 0.2);
             --main-background-color: rgb(51, 51, 51);
@@ -31,10 +32,19 @@
 
     body {
         -webkit-font-smoothing: antialiased;
+        cursor: default;
         margin: 0px;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         color: var(--main-text-color);
         background-color: var(--main-background-color);
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
     }
 
     h1 {
@@ -45,9 +55,9 @@
         letter-spacing: 0.12800000607967377px;
     }
 
-    a {
+    /* a {
         color: rgb(0, 112, 201);
-    }
+    } */
 
     nav {
         -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -55,6 +65,7 @@
         height: 50px;
         background: var(--navbar-bg);
         position: fixed;
+        z-index: 2000;
     }
 
     textarea:focus, input:focus{
@@ -73,14 +84,13 @@
         padding-top: 50px;
         width: 100vw;
         height: 100%;
-        /* background-image: url("https://images.unsplash.com/photo-1420593248178-d88870618ca0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60") */
+        z-index: 900;
     }
 
     #appView {
         padding-top: 50px;
         width: 100vw;
         height: 100%;
-        /* padding-left: 37.5px; */
     }
 
     #logoutButton {
@@ -94,8 +104,21 @@
         background-color: transparent;
         transition-duration: 250ms;
         padding: 0px;
-        color: var(--main-text-color)
-        /* width: 20px; */
+        color: var(--main-text-color);
+    }
+
+    #settingsButton {
+        position: absolute;
+        text-align: left;
+        font-size: 16px;
+        top: 13px;
+        left: 10px;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        transition-duration: 250ms;
+        padding: 0px;
+        color: var(--main-text-color);
     }
 
     #logoutButton:active {
@@ -140,20 +163,152 @@
         border: none;
     }
 
+    #centralUIDiv {
+        position: relative;
+        left: 50%;
+        /* top: 50%; */
+        transform: translate(-50%, 0);
+        width: 85vw;
+        max-width: 400px;
+        /* padding-left: 30px; padding-right: 30px; */
+    }
+
+    .carBtn, .userBtn {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        text-align: center;
+        vertical-align: center;
+        display: inline-block;
+        font-family: 'Iosevka';
+        font-weight: 700;
+        transition-duration: 0.5s;
+        color: var(--main-text-color);
+        background-color: transparent;
+    }
+
+    .carBtn:active, .userBtn:active {
+        color: rgba(255,255,255,0.2);
+        transition-duration: 0.2s;
+    }
+
+    .uiContainer {
+        width: 100%;
+        height: 100px;
+        background-color: rgba(141, 141, 141, 0.1);
+        border-radius: 15px;
+    }
+
+    .flexBox1 {
+        display: flex;
+    }
+
     .loginPart {
         /* padding: 5px; */
         border-bottom: 10px;
     }
+
+
+    /* COOL CAR STUFF */
+
+    .carName, .userName {
+        display: inline-block;
+        /* color: var(--main-text-color); */
+        font-size: 16px;
+    }
+
+    .carCount, .userDebt {
+        display: inline-block;
+        /* color: var(--main-text-color); */
+        font-size: 24px;
+    }
+
+    #actionsBox {
+        height: 1000px;
+        margin-bottom: 50px;
+    }
+
+    #settingsPage {
+        background-color: var(--main-background-color);
+        width: 300px;
+        height: 300px;
+        border-radius: 15px;
+        padding: 15px;
+        z-index: 1002;
+    }
+
+    #shadowSheet {
+        background-color:rgb(0, 0, 0, 0.5);
+        z-index: 1001;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top:0px;
+        left: 0px;
+    }
+
+    .actionRow {
+        height: 66px;
+        width: 93%;
+        padding: 15px;
+        font-family: 'Iosevka';
+        font-size: 18px;
+        font-weight: 700;
+        position: relative;
+        /* border-bottom: 1px solid var(--navbar-bg);            <---- ADD THIS FOR ALL EXCEPT THE BOTTOM ONE */
+    }
+
+    .actionType {
+        opacity: 0.5;
+        display:inline-block;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+    }
+
+    .actionDesc {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    .actionTimestamp {
+        opacity: 0.5;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        text-align: right;
+    }
+
+    .actionUsername {
+        opacity: 0.5;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        text-align: right;
+    }
+
+    .close-x {
+        stroke: var(--main-text-color);
+        fill: transparent;
+        stroke-linecap: round;
+        stroke-width: 5;
+    }
+
+    .bottomBorder {
+        border-bottom: 1px solid var(--navbar-bg);
+    }
 </style>
 <body>
         <nav id="ac-globalnav" class="js no-touch" role="navigation" data-hires="false" lang="en-US" dir="ltr">
+            <!-- <button id="settingsButton">Settings</button> -->
             <span id="apptitle">
                 <span>Conta²</span>
             </span>
-            <button id="logoutButton">Log Out</button>
+            <button id="logoutButton" hidden="hidden">Log Out</button>
         </nav>
     </div>
-    <div id="loginSheet">
+    <div id="loginSheet" hidden='hidden'>
         <div id="centralLoginDiv" class="centralDiv">
             <h1>Login</h1>
             <span class="loginPart"><label for="usernameInput">Username</label> <input id="usernameInput" type="text" autocomplete="off" tabindex="1" mozactionhint="Next"/></span>
@@ -161,24 +316,57 @@
             <input id="loginBtn" type="submit" value="Login"/>
         </div>
     </div>
-    <div id="appView">
-        <div id="centralUIDiv" class="centralDiv">
-            <h1>Hi!</h1>
+    <div id="appView" hidden='hidden'>
+        <div id="centralUIDiv" >
+            <h1>Cars</h1>
+            <div id="carsBox" class="uiContainer flexBox1"></div>
+            <h1>Users</h1>
+            <div id="usersBox" class="uiContainer flexBox1"></div>
+            <h1>Actions</h1>
+            <div id="actionsBox" class="uiContainer">
+                <!-- <div class="actionRow">
+                    <span class="actionType">CAR</span>
+                    <span class="actionDesc">LEAF</span>
+                    <span class="actionTimestamp">26/09/2019</span>
+                    <span class="actionUsername">ichicoro</span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div id="shadowSheet" hidden></div>
+    <div id="settingsPage" class="centralDiv" hidden>
+        <h1 style="margin: 0px;margin-left:5px;">Settings</h1>
+        <div id="exitBtn" style="color: white;width:28px;height:28px;position:absolute;top:22px;right:24px;">
+            <svg viewbox="0 0 40 40">
+                <path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+            </svg>
         </div>
     </div>
 </body>
 <script>
+$(document).ready(() => {
+
     var loggedIn = window.localStorage.getItem("loggedIn") || false
 
+    $("#settingsButton").on("click", () => { 
+        $("#settingsPage").show()
+        $("#shadowSheet").show()
+    })
+
+    $("#exitBtn").on("click", () => { 
+        $("#settingsPage").hide()
+        $("#shadowSheet").hide()
+    })
+
     if (!loggedIn) {
-        $("#logoutButton").hide()
-        $("#appView").hide()
+        $('#loginSheet').show()
 
         function checkLogin() {
             const username = $("#usernameInput").val()
             const password = $("#passwordInput").val()
             $.ajax({
-                url: "###baseURL###" + "users",
+                url: window.location.href + "users",
                 headers: {
                     username: username,
                     password: password
@@ -212,7 +400,198 @@
 
         $("#loginBtn").on("click", checkLogin)
     } else {
-        $("#loginSheet").hide()
+        $("#logoutButton").show()
+        $("#appView").show()
+        const username = window.localStorage.getItem("username")
+        const password = window.localStorage.getItem("password")
+
+        function addCar(carID) {
+            $.ajax({
+                url: window.location.href + "actions",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                contentType: "application/json",
+                type: "POST",
+                data: JSON.stringify({
+                    type: "car",
+                    car: carID
+                }),
+                success: (data) => { 
+                    console.log(data)
+                    refreshData()
+                },
+                error: (data) => { console.log(data) }
+            })
+        }
+
+        function addDebt(amount, whose) {
+            $.ajax({
+                url: window.location.href + "actions",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                contentType: "application/json",
+                type: "POST",
+                data: JSON.stringify({
+                    type: "debt",
+                    whose: whose,
+                    amount: amount
+                }),
+                success: (data) => { 
+                    console.log(data)
+                    refreshData()
+                },
+                error: (data) => { console.log(data) }
+            })
+        }
+
+        function removeAction(timestamp) {
+            $.ajax({
+                url: window.location.href + "actions",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                contentType: "application/json",
+                type: "DELETE",
+                data: JSON.stringify({
+                    type: "timestamp",
+                    value: timestamp
+                }),
+                success: (data) => { 
+                    console.log(data)
+                    refreshData()
+                },
+                error: (data) => { console.log(data) }
+            })
+        }
+
+        function reloadCars() {
+            $.ajax({
+                url: window.location.href + "cars",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                type: "GET",
+                success: (data) => {
+                    $("#carsBox").html("")
+                    const template = `<div class="carBtn" data-car="###carID###">
+                    <div class="centralDiv">
+                        <span class="carName">###carName###</span><br/>
+                        <span class="carCount">###carCount###</span>
+                    </div>
+                </div>`
+                    console.log(data.data)
+                    data.data.forEach(car => {
+                        $("#carsBox").html($("#carsBox").html() + 
+                            template.replace(/###carID###/g, car.id)
+                                    .replace(/###carName###/g, car.name.toUpperCase())
+                                    .replace(/###carCount###/g, car.count)
+                        )
+                    })
+                    $(".carBtn").on("click", function(e) {
+                        e.preventDefault()
+                        addCar($(this).attr("data-car"))
+                    })
+                },
+                error: (data) => { }
+            })
+        }
+
+        function reloadUsers() {
+            $.ajax({
+                url: window.location.href + "users",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                type: "GET",
+                success: (data) => {
+                    $("#usersBox").html("")
+                    const template = `<div class="userBtn" data-user="###userID###">
+                    <div class="centralDiv">
+                        <span class="userName">###userName###</span><br/>
+                        <span class="userDebt">###userDebt###</span>
+                    </div>
+                </div>`
+                    console.log(data.data)
+                    data.data.forEach((user) => {
+                        $("#usersBox").html($("#usersBox").html() + 
+                            template.replace(/###userID###/g, user.username)
+                                    .replace(/###userName###/g, user.name.toUpperCase())
+                                    .replace(/###userDebt###/g, user.debt + "€")
+                        )
+                    })
+                    $(".userBtn").on("click", function(e) {
+                        e.preventDefault()
+                        const amount = Number(window.prompt("Amount?", ""));
+                        if (!isNaN(amount) && amount > 0) {
+                            addDebt(amount, $(this).attr("data-user"))
+                        } else {
+                            alert("Not a valid amount!")
+                        }
+                    })
+                },
+                error: (data) => { alert("Invalid username/password") }
+            })
+        }
+
+        function formatTimestamp(ts) {
+            const date = new Date(ts)
+            return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        }
+
+        function reloadActions() {
+            $.ajax({
+                url: window.location.href + "actions",
+                headers: {
+                    username: username,
+                    password: password
+                },
+                type: "GET",
+                success: (data) => {
+                    $("#actionsBox").html("")
+                    const template = `<div class="actionRow ###prop###" data-action='###timestamp###'>
+                        <span class="actionType">###actionType###</span>
+                        <span class="actionDesc">###actionDesc###</span>
+                        <span class="actionTimestamp">###actionDate###</span>
+                        <span class="actionUsername">###actionUsername###</span>
+                    </div>`
+                    console.log(data.data)
+                    data.data.forEach((action, i) => {
+                        var newstring = template.replace(/###timestamp###/g, action.timestamp)
+                                                .replace(/###actionType###/g, action.type.toUpperCase())
+                                                .replace(/###actionUsername###/g, action.username)
+                                                .replace(/###actionDate###/g, formatTimestamp(action.timestamp))
+                                                .replace(/###prop###/g, i == data.data.length-1 ? "" : "bottomBorder")
+                        if (action.type == "car") {
+                            newstring = newstring.replace(/###actionDesc###/g, action.car.toUpperCase())
+                        } else {
+                            newstring = newstring.replace(/###actionDesc###/g, `${action.whose.toUpperCase()} +${action.amount}€`)
+                        }
+                        $("#actionsBox").html($("#actionsBox").html() + newstring)
+                    })
+                    $("#actionsBox").height((97)*data.data.length)
+                    $(".actionRow").on("click", function(e) {
+                        e.preventDefault()
+                        if (confirm("Are you sure you want to delete this action?")) {
+                            removeAction(Number($(this).attr("data-action")))
+                        }
+                    })
+                },
+                error: (data) => { alert("Invalid username/password") }
+            })
+        }
+
+        function refreshData() {
+            reloadCars()
+            reloadUsers()
+            reloadActions()
+        }
 
         function logOut() {
             window.localStorage.removeItem("username")
@@ -222,6 +601,13 @@
         }
 
         $("#logoutButton").on("click", () => { logOut() })
+        
+        
+        refreshData()
+
+        setInterval(refreshData, 5000)
     }
+
+})
 </script>
 </html>

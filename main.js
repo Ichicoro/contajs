@@ -5,6 +5,7 @@ const fs = require('fs')
 const port = 6060
 
 app.use(bodyParser.json())
+app.use(express.static(__dirname + '/public'));
 
 let config = JSON.parse(fs.readFileSync("config.json", "utf8"))
 
