@@ -349,10 +349,10 @@ $(document).ready(() => {
 
     var loggedIn = window.localStorage.getItem("loggedIn") || false
 
-    var baseURL = "###baseURL###"
+    var baseURL = location.href//"###baseURL###"
     console.log(location.href)
-    if (location.href.includes("https"))
-        baseURL = baseURL.replace(/http/, "https")
+    // if (location.href.includes("https"))
+    //     baseURL = baseURL.replace(/http/, "https")
 
     $("#settingsButton").on("click", () => { 
         $("#settingsPage").show()
@@ -371,7 +371,7 @@ $(document).ready(() => {
             const username = $("#usernameInput").val()
             const password = $("#passwordInput").val()
             $.ajax({
-                url: baseURL + "users",
+                url: "users",
                 headers: {
                     username: username,
                     password: password
@@ -412,7 +412,7 @@ $(document).ready(() => {
 
         function addCar(carID) {
             $.ajax({
-                url: baseURL + "actions",
+                url: "actions",
                 headers: {
                     username: username,
                     password: password
@@ -433,7 +433,7 @@ $(document).ready(() => {
 
         function addDebt(amount, whose) {
             $.ajax({
-                url: baseURL + "actions",
+                url: "actions",
                 headers: {
                     username: username,
                     password: password
@@ -455,7 +455,7 @@ $(document).ready(() => {
 
         function removeAction(timestamp) {
             $.ajax({
-                url: baseURL + "actions",
+                url: "actions",
                 headers: {
                     username: username,
                     password: password
@@ -476,7 +476,7 @@ $(document).ready(() => {
 
         function reloadCars() {
             $.ajax({
-                url: baseURL + "cars",
+                url: "cars",
                 headers: {
                     username: username,
                     password: password
@@ -509,7 +509,7 @@ $(document).ready(() => {
 
         function reloadUsers() {
             $.ajax({
-                url: baseURL + "users",
+                url: "users",
                 headers: {
                     username: username,
                     password: password
@@ -552,7 +552,7 @@ $(document).ready(() => {
 
         function reloadActions() {
             $.ajax({
-                url: baseURL + "actions",
+                url: "actions",
                 headers: {
                     username: username,
                     password: password
