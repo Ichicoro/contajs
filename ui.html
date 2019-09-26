@@ -350,8 +350,9 @@ $(document).ready(() => {
     var loggedIn = window.localStorage.getItem("loggedIn") || false
 
     var baseURL = "###baseURL###"
+    console.log(location.href)
     if (location.href.includes("https"))
-        baseURL.replace(/http/, "https")
+        baseURL = baseURL.replace(/http/, "https")
 
     $("#settingsButton").on("click", () => { 
         $("#settingsPage").show()
