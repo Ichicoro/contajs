@@ -349,6 +349,8 @@ $(document).ready(() => {
 
     var loggedIn = window.localStorage.getItem("loggedIn") || false
 
+    const baseURL = "###baseURL###"
+
     $("#settingsButton").on("click", () => { 
         $("#settingsPage").show()
         $("#shadowSheet").show()
@@ -366,7 +368,7 @@ $(document).ready(() => {
             const username = $("#usernameInput").val()
             const password = $("#passwordInput").val()
             $.ajax({
-                url: window.location.href + "users",
+                url: baseURL + "users",
                 headers: {
                     username: username,
                     password: password
@@ -407,7 +409,7 @@ $(document).ready(() => {
 
         function addCar(carID) {
             $.ajax({
-                url: window.location.href + "actions",
+                url: baseURL + "actions",
                 headers: {
                     username: username,
                     password: password
@@ -428,7 +430,7 @@ $(document).ready(() => {
 
         function addDebt(amount, whose) {
             $.ajax({
-                url: window.location.href + "actions",
+                url: baseURL + "actions",
                 headers: {
                     username: username,
                     password: password
@@ -450,7 +452,7 @@ $(document).ready(() => {
 
         function removeAction(timestamp) {
             $.ajax({
-                url: window.location.href + "actions",
+                url: baseURL + "actions",
                 headers: {
                     username: username,
                     password: password
@@ -471,7 +473,7 @@ $(document).ready(() => {
 
         function reloadCars() {
             $.ajax({
-                url: window.location.href + "cars",
+                url: baseURL + "cars",
                 headers: {
                     username: username,
                     password: password
@@ -504,7 +506,7 @@ $(document).ready(() => {
 
         function reloadUsers() {
             $.ajax({
-                url: window.location.href + "users",
+                url: baseURL + "users",
                 headers: {
                     username: username,
                     password: password
@@ -547,7 +549,7 @@ $(document).ready(() => {
 
         function reloadActions() {
             $.ajax({
-                url: window.location.href + "actions",
+                url: baseURL + "actions",
                 headers: {
                     username: username,
                     password: password
